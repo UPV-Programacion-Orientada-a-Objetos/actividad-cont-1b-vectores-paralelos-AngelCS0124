@@ -84,6 +84,7 @@ int main() {
                 break; 
             case 3:
                 agregarProducto(codigos, nombres, stock, precios, ubicaciones, tam);
+                tam++;
                 break;
             case 4:
                 generarReporte(codigos, nombres, stock, precios, ubicaciones, tam);

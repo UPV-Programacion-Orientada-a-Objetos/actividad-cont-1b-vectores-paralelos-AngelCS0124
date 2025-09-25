@@ -49,3 +49,4 @@ Código,Nombre,Cantidad,Precio,Ubicación
 148,Fusibles surtidos (caja),80,10,I-03
 149,Cinta aislante,0,2.5,I-04
 150,Timbre inalámbrico,0,65,A-08
+151,Martillo,30,45,A-09
