@@ -46,7 +46,7 @@ int main() {
     float precios[tam_max];
     std::string ubicaciones[tam_max];
 
-    const std::string dataFileLocation = "C:\\Users\\as_co\\C\\actividad-cont-1b-vectores-paralelos-AngelCS0124\\data\\inventario.txt";
+    const std::string dataFileLocation = "C:\\Users\\as_co\\C\\actividad-cont-1b-vectores-paralelos-AngelCS0124\\data\\inventario.csv";
     std::ifstream dataFile;
 
     dataFile.open(dataFileLocation, std::ios::in);
@@ -75,22 +75,26 @@ int main() {
                 pos = linea.find(',');
                 if (pos == std::string::npos) continue;
                 token = linea.substr(0, pos);
+                ubicaciones[indice] = token;
+                linea.erase(0, pos + 1);
+
+                pos = linea.find(',');
+                if (pos == std::string::npos) continue;
+                token = linea.substr(0, pos);
                 nombres[indice] = token;
                 linea.erase(0, pos + 1);
 
                 pos = linea.find(',');
                 if (pos == std::string::npos) continue;
                 token = linea.substr(0, pos);
-                stock[indice] = std::stoi(token);
+                int stock_aux = std::stoi(token);
+                if (stock_aux > 50) {
+                    std::cout << "Hay sobrestock de " << nombres[indice] << ". Stock de " << stock_aux << " unidades" << std::endl;
+                }
+                stock[indice] = stock_aux;
                 linea.erase(0, pos + 1);
 
-                pos = linea.find(',');
-                if (pos == std::string::npos) continue;
-                token = linea.substr(0, pos);
-                precios[indice] = std::stof(token);
-                linea.erase(0, pos + 1);
-
-                ubicaciones[indice] = linea;
+                precios[indice] = std::stof(linea);
                 indice++;
             } catch (const std::exception& e) {
                 std::cout << "ADVERTENCIA: Error al procesar linea: " << linea << std::endl;
@@ -335,7 +339,7 @@ void generarReporte(int codigos[], std::string nombres[], int stock[], float pre
     int productos_bajo_stock = 0;
 
     for (int i = 0; i < tam; i++){
-        if (stock[i] < 10){
+        if (stock[i] < 5){
             std::cout << codigos[i] << " | " << nombres[i] << " | " << stock[i] << " | $" << precios[i] << " | " << ubicaciones[i] << std::endl;
             productos_bajo_stock++;
         }
@@ -370,16 +374,16 @@ void buscarProductoMasCaro(std::string nombres[], float precios[], int tam){
 }
 
 void guardarDatos(int codigos[], std::string nombres[], int stock[], float precios[], std::string ubicaciones[], int tam) {
-    const std::string dataFileLocation = "C:\\Users\\as_co\\C\\actividad-cont-1b-vectores-paralelos-AngelCS0124\\data\\inventario.txt";
+    const std::string dataFileLocation = "C:\\Users\\as_co\\C\\actividad-cont-1b-vectores-paralelos-AngelCS0124\\data\\inventario.csv";
     std::ofstream dataFile;
 
     dataFile.open(dataFileLocation, std::ios::out);
     if (!dataFile) {
         std::cout << "WARNING: No se pudo abrir el archivo para guardar: " << dataFileLocation << std::endl;
     } else {
-        dataFile << "Código,Nombre,Cantidad,Precio,Ubicación" << std::endl;
+        dataFile << "Código,Ubicación,Nombre,Cantidad,Precio" << std::endl;
         for (int i = 0; i < tam; i++) {
-            dataFile << codigos[i] << "," << nombres[i] << "," << stock[i] << "," << precios[i] << "," << ubicaciones[i] << std::endl;
+            dataFile << codigos[i] << "," << ubicaciones[i] << "," << nombres[i] << "," << stock[i] << "," << precios[i] << std::endl;
         }
 
         dataFile.close();
