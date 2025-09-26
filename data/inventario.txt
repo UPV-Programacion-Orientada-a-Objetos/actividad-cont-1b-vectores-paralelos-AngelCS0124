@@ -47,6 +47,6 @@ Código,Nombre,Cantidad,Precio,Ubicación
 146,Extensión eléctrica 10m,30,29.99,C-03
 147,Regleta con supresor,44,14.5,C-04
 148,Fusibles surtidos (caja),80,10,I-03
-149,Cinta aislante,0,2.5,I-04
-150,Timbre inalámbrico,0,65,A-08
+149,Cinta aislante,9,2.5,I-04
+150,Timbre inalámbrico,18,65,A-08
 151,Martillo,30,45,A-09
